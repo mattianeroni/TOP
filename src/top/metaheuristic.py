@@ -113,6 +113,22 @@ def local_search_metaheuritic(
         long_simulation_n_iter: int = 50_000,
     ) -> tuple[Solution, Solution]:
     """
+        A metaheuristic where the local search is based on 3 operators: 
+            - insert: add to a random route as many customers as possibles
+            - remove: remove from a random route a customer 
+            - shaking: delete a random route and re-build it using the savings heuristic 
+
+        At each iteration, even if the new solution is not outperforming the base solution, 
+        we offer a possibility to upadate anyway the base solution, thorugh a random probability
+        depending on the temperature, where the concept of temperature is similar to the one 
+        of the Simulated Annealing.
+
+        Parameters: 
+            - p: the problem instance to solve 
+            - max_iter: the number of iterations 
+            - n_elites: number of elite solutions considered in the stochastic version
+            - short_simulation_n_iter: number of iterations for a short simulation in the stochastic version
+            - long_simulation_n_iter: number of iterations for a long simulation in the stochastic version
     """
     logger.info(f"Running local search metaheuristic on instance {p.instance}.")
     # Best solution and best stochastic solution 
